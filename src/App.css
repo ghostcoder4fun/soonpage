@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Jost:wght@300;400&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --night: #000000;
+  --deep: #0a0a0a;
+  --moon: #ffffff;
+  --moon-dark: #cccccc;
+  --moon-shadow: #666666;
+  --glow: #ffffff;
+  --text: #ffffff;
+  --muted: rgba(255, 255, 255, 0.45);
+  --accent: rgba(255, 255, 255, 0.08);
+}
+
+body { background: var(--night); }
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Jost', sans-serif;
+  background: var(--night);
+  overflow: hidden;
+  position: relative;
+}
+
+.bg-radial {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 20%, #1a1a1a 0%, transparent 70%),
+    radial-gradient(ellipse 80% 60% at 30% 80%, #0a0a0a 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* ── MOON CONTAINER ── */
+.moon-container {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  margin: 0 auto 2.5rem;
+  flex-shrink: 0;
+}
+
+/* Stars */
+.stars { position: absolute; inset: -80px; pointer-events: none; }
+
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: #fff;
+  opacity: 0;
+  animation: twinkle 4s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0; transform: scale(0.6); }
+  50% { opacity: 0.8; transform: scale(1); }
+}
+
+/* Moon disc */
+.moon {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ffffff, #d0d0d0 50%, #a0a0a0 100%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: float 6s ease-in-out infinite;
+  overflow: hidden;
+  box-shadow:
+    inset -18px -14px 30px rgba(0, 0, 0, 0.45),
+    inset 8px 8px 20px rgba(255, 255, 255, 0.35),
+    0 0 40px rgba(255, 255, 255, 0.18),
+    0 0 80px rgba(255, 255, 255, 0.08);
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
+  50% { transform: translate(-50%, -50%) translateY(-10px); }
+}
+
+/* Sheen */
+.moon-sheen {
+  position: absolute;
+  top: 8%;
+  left: 12%;
+  width: 36%;
+  height: 32%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.6) 0%, transparent 70%);
+  transform: rotate(-30deg);
+}
+
+/* Craters */
+.moon-crater {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, rgba(160,160,160,0.5), rgba(110,110,110,0.7));
+  box-shadow: inset 2px 2px 4px rgba(0,0,0,0.5), inset -1px -1px 2px rgba(255,255,255,0.2);
+}
+
+.crater-1 { width: 28px; height: 28px; top: 28%; left: 58%; }
+.crater-2 { width: 18px; height: 18px; top: 55%; left: 22%; }
+.crater-3 { width: 13px; height: 13px; top: 40%; left: 40%; }
+
+/* Halo ring */
+.moon-halo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 210px;
+  height: 210px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.06);
+  animation: halo-pulse 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes halo-pulse {
+  0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.04); }
+}
+
+/* ── TEXT ── */
+.content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  animation: rise 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.text-block {
+  max-width: 440px;
+}
+
+.eyebrow {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 300;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.9rem;
+}
+
+.heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3.2rem, 8vw, 5.2rem);
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 1.4rem;
+}
+
+.description {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.85;
+  color: var(--muted);
+  max-width: 320px;
+  margin: 0 auto;
+}
